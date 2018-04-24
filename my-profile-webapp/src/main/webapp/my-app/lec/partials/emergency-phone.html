@@ -1,5 +1,5 @@
 <div ng-controller="EmergencyPhoneController as EmergencyPhoneCtrl">
-  <loading-gif data-object="emergencyPhoneNumbers" data-reuse="true"></loading-gif>
+  <loading-gif ng-hide="empty" data-object="emergencyPhoneNumbers" data-reuse="true"></loading-gif>
   <div ng-show="empty || emergencyPhoneNumbers.emergencyPhoneNumbers.length > 0" class="contact-info-card" flex>
     <h2 class="md-headline" layout="row" layout-align="space-between center">
       <div class="subhead-border"></div>
@@ -13,9 +13,9 @@
       <div class="description-box">
         <p>A number where you can be reached in an emergency.</p>
       </div>
-      <p ng-if="emergencyPhoneNumbers.emergencyPhoneNumbers.length === 0 && !editMode"><md-icon>warning</md-icon> No phone number entered yet.</p>
+      <p ng-if="empty && !editMode"><md-icon class="md-warn">warning</md-icon> No phone number entered yet.</p>
       <!-- Non-empty -->
-      <div ng-if="!editMode && emergencyPhoneNumbers.emergencyPhoneNumbers.length !== 0" layout="row" layout-align="space-between center">
+      <div ng-if="!editMode && !empty" layout="row" layout-align="space-between center">
         <span class="md-subhead" flex="80">
           {{ emergencyPhoneNumbers[0].value}} ({{emergencyPhoneNumbers[0].type }})
         </span>

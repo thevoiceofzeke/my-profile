@@ -109,15 +109,16 @@ define(['angular'], function(angular) {
       $rootScope.profileLoadingState = $rootScope.profileLoadingState || {};
       $rootScope.profileLoadingState.ephone = true;
       lecService.getEmergencyPhoneNumber()
-        .then(function(result){//success
+        .then(function(result) {
           $rootScope.profileLoadingState.ephone = false;
           $scope.emergencyPhoneNumbers = result.data;
-          if ( $scope.emergencyPhoneNumbers.length === 0 ) {
+          if ($scope.emergencyPhoneNumbers.length === 0) {
               $scope.empty = true;
           }
-        }, function(result, status){//error
+        }).catch(function(result, status) {
           $rootScope.profileLoadingState.ephone = false;
           $scope.emergencyPhoneNumbers = [];
+          $scope.empty = true;
           errorService.sendError(status, 'phone number', false);
         });
     };
@@ -287,7 +288,7 @@ define(['angular'], function(angular) {
         $scope.alert.msg = data.msg || '';
         $scope.alert.note = data.note || '';
         $mdDialog.show({
-          templateUrl: 'alert.html',
+          templateUrl: 'my-app/dialog/partials/alert.html',
           parent: angular.element(document).find('div.my-uw')[0],
           clickOutsideToClose: true,
           preserveScope: true,
